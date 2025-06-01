@@ -36,10 +36,6 @@ Cypress.Commands.add('CreateUser', (dataUser) => {
 
 });
 
-/* ------------------------------------------------------------------
-função descontinuada, pois o comando CreateUser já está implementado
-Mas ficará por aq para fins academicos!
-______________
 Cypress.Commands.add('LoginUser', (dataUser) => {
     return cy.request({
         url:'/sessions',
@@ -51,6 +47,4 @@ Cypress.Commands.add('LoginUser', (dataUser) => {
         }
     });
 } );
- ______________
- 
-----------------------------------------------------------------------*/
+

@@ -23,6 +23,13 @@ async function deleteUser(email) {
 
 }
 
+module.exports = { deleteUser };
+
+
+/* ------------------------------------------------------------------
+função descontinuada, pois o comando CreateUser já está implementado
+Mas ficará por aq para fins academicos!
+______________
 async function insertUser(user) {
 
 const client = new MongoClient(uri);
@@ -39,5 +46,6 @@ const client = new MongoClient(uri);
     await client.close();
   }
 }
-module.exports = { deleteUser, insertUser };
+ ______________
 
+----------------------------------------------------------------------*/
