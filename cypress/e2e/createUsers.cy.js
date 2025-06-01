@@ -1,4 +1,4 @@
-/// <reference types="cypress" />
+
 
 
 describe('Teste de API Mark85', () => {
@@ -9,6 +9,7 @@ describe('Teste de API Mark85', () => {
       data = user;
     });
   });
+
 
   context('Create', () => {
     
