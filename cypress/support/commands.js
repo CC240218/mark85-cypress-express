@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 /// <reference types="cypress" />
 
-Cypress.Commands.add('CreateUser', (dataUser) => {
+Cypress.Commands.add('createUser', (dataUser) => {
 
     return cy.request({
         url:'/users',
@@ -36,7 +36,7 @@ Cypress.Commands.add('CreateUser', (dataUser) => {
 
 });
 
-Cypress.Commands.add('LoginUser', (dataUser) => {
+Cypress.Commands.add('loginUser', (dataUser) => {
     return cy.request({
         url:'/sessions',
         method:'POST',
