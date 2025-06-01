@@ -4,6 +4,7 @@ const { insertUser } = require("./cypress/support/utils");
 
 module.exports = {
   e2e: {
+    baseUrl: 'http://localhost:3333',
     setupNodeEvents(on, config) {
       on('task', {
         async deleteUserByEmail(email){

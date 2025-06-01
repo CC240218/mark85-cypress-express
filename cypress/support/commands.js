@@ -28,9 +28,24 @@
 Cypress.Commands.add('CreateUser', (dataUser) => {
 
     return cy.request({
-        url:'http://localhost:3333/users',
+        url:'/users',
         method:'POST',
         failOnStatusCode: false,
         body: dataUser
     });
+    
 });
+
+Cypress.Commands.add('LoginUser', (dataUser) => {
+
+    return cy.request({
+        url:'/sessions',
+        method:'POST',
+        failOnStatusCode: false,
+        body: {
+            email: dataUser.email,
+            password: dataUser.password
+        }
+    });
+
+} );
