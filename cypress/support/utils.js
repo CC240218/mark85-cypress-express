@@ -1,10 +1,13 @@
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
-async function deleteUser(email) {
-  const uri = process.env.MONGODB_URI // CHAVE DE ACESSO AO BANCO
-  const client = new MongoClient(uri);
+const uri = process.env.MONGODB_URI // CHAVE DE ACESSO AO BANCO
 
+
+
+async function deleteUser(email) {
+
+  const client = new MongoClient(uri);
   try {
     await client.connect();
     const db = client.db('markdb'); // ajuste para o banco
@@ -17,12 +20,12 @@ async function deleteUser(email) {
   } finally {
     await client.close();
   }
+
 }
 
 async function insertUser(user) {
-  const uri = process.env.MONGODB_URI; // CHAVE DE ACESSO AO BANCO
-  const client = new MongoClient(uri);
 
+const client = new MongoClient(uri);
   try {
     await client.connect();
     const db = client.db('markdb'); // ajuste para o banco
