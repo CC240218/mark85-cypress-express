@@ -40,7 +40,7 @@ describe('Teste de API Mark85', () => {
     it('Não deve cadastrar usuário com um email ja cadastrado', () => {
 
       cy.task('deleteUserByEmail', data.users.email)
-      cy.task('insertUsers', data.users)
+      cy.CreateUser(data.users, {});
 
       cy.CreateUser(data.users, {
 

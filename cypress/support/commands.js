@@ -33,11 +33,14 @@ Cypress.Commands.add('CreateUser', (dataUser) => {
         failOnStatusCode: false,
         body: dataUser
     });
-    
+
 });
 
+/* ------------------------------------------------------------------
+função descontinuada, pois o comando CreateUser já está implementado
+Mas ficará por aq para fins academicos!
+______________
 Cypress.Commands.add('LoginUser', (dataUser) => {
-
     return cy.request({
         url:'/sessions',
         method:'POST',
@@ -47,5 +50,7 @@ Cypress.Commands.add('LoginUser', (dataUser) => {
             password: dataUser.password
         }
     });
-
 } );
+ ______________
+ 
+----------------------------------------------------------------------*/
