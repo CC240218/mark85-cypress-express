@@ -1,7 +1,6 @@
 
 
-
-describe('Teste de API Mark85', () => {
+describe('Teste de criação de usuario via API', () => {
  
   let data;
   beforeEach(() => { 
@@ -17,7 +16,7 @@ describe('Teste de API Mark85', () => {
     
       cy.task('deleteUserByEmail', data.users.email)
 
-      cy.CreateUser(data.users ,{
+      cy.createUser(data.users ,{
       }).then(response => {
           expect(response.status).to.eq(201);
           expect(response.body).to.have.property('name');
@@ -40,9 +39,9 @@ describe('Teste de API Mark85', () => {
     it('Não deve cadastrar usuário com um email ja cadastrado', () => {
 
       cy.task('deleteUserByEmail', data.users.email)
-      cy.CreateUser(data.users, {});
+      cy.createUser(data.users, {});
 
-      cy.CreateUser(data.users, {
+      cy.createUser(data.users, {
 
       }).then(response => {
         expect(response.status).to.eq(409);
@@ -54,7 +53,7 @@ describe('Teste de API Mark85', () => {
     it('Não deve cadastrar usuário com email invalido', () => {
 
       data.users.email = 'emailinvalido';
-      cy.CreateUser(data.users, data.users.email, {
+      cy.createUser(data.users, data.users.email, {
 
       }).then(response => {
         expect(response.status).to.eq(400);
@@ -67,7 +66,7 @@ describe('Teste de API Mark85', () => {
     it('Não deve cadastrar com o campo name vazio', () => {
 
       data.users.name = '';
-      cy.CreateUser(data.users, {
+      cy.createUser(data.users, {
 
       }).then(response => {
         expect(response.status).to.eq(400);
@@ -80,7 +79,7 @@ describe('Teste de API Mark85', () => {
     it('Não deve cadastrar com o campo email vazio', () => {
 
       data.users.email = '';
-      cy.CreateUser(data.users, {
+      cy.createUser(data.users, {
 
       }).then(response => {
         expect(response.status).to.eq(400);
@@ -93,7 +92,7 @@ describe('Teste de API Mark85', () => {
     it('Não deve cadastrar com o campo password', () => {
 
       data.users.password = '';
-      cy.CreateUser(data.users, {
+      cy.createUser(data.users, {
 
       }).then(response => {
         expect(response.status).to.eq(400);
@@ -106,7 +105,7 @@ describe('Teste de API Mark85', () => {
     it('Não deve permitir campos não planejados no request', () => {
 
       data.users.extra = 'extraField';
-      cy.CreateUser(data.users, {}).then(response => {
+      cy.createUser(data.users, {}).then(response => {
         expect(response.status).to.eq(400);
         expect(response.body).to.have.property('message');
         expect(response.body.message).to.eq(data.err.extra);
