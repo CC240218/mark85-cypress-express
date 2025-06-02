@@ -7,13 +7,20 @@
         "email": "teste@create.com",
         "password": "123"
         },
+
+    "task": {
+        "name": "tarefa",
+        "tags": ["tag1", "tag2", "tag3"]
+    },
+
     "err":{
             "msnDupl": "Duplicated email!",
             "msnInv": "ValidationError: \"email\" must be a valid email",
             "namEmpy": "ValidationError: \"name\" is not allowed to be empty",
             "emlEmpy": "ValidationError: \"email\" is not allowed to be empty",
             "pwdEmpy": "ValidationError: \"password\" is not allowed to be empty",
-            "extra": "ValidationError: \"extra\" is not allowed" 
+            "extra": "ValidationError: \"extra\" is not allowed",
+            "errToken": "Expired or incorrect token"
         }
 
 
