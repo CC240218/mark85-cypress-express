@@ -1,5 +1,5 @@
 const { deleteUser } = require("./cypress/support/utils");
-const { insertUser } = require("./cypress/support/utils");
+//const { insertUser } = require("./cypress/support/utils");
 
 
 module.exports = {
@@ -11,12 +11,12 @@ module.exports = {
           return await deleteUser(email)
         }
       });
-      on('task', {
+      /*on('task', {
         async insertUsers(user){
           return await insertUser(user)
         }
-      })
-      // implement node event listeners here
+      })*/
+    
     },
   },
 };
