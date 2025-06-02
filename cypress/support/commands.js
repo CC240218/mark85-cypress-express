@@ -48,3 +48,20 @@ Cypress.Commands.add('loginUser', (dataUser) => {
     });
 } );
 
+
+Cypress.Commands.add('createTask', (dataTask) => {
+ 
+    return cy.get('@loginToken').then(token => {
+       
+        return cy.request({
+            url: '/tasks',
+            method: 'POST',
+            failOnStatusCode: false,
+            headers: {
+                Authorization: token
+            },
+            body: dataTask
+        });
+    });
+     
+});
