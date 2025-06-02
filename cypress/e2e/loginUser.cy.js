@@ -30,8 +30,6 @@ describe('Teste de login via API', () => {
                 expect(response.body.user.password).to.not.eq(data.users.password);
                 expect(response.body.expires_in).to.eq('10d');
 
-            cy.wrap(response.body.token).as('token');
-
             });
             
         });
