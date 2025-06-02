@@ -23,7 +23,26 @@ async function deleteUser(email) {
 
 }
 
-module.exports = { deleteUser };
+async function deleteAllTasks() {
+
+  const client = new MongoClient(uri);
+  try {
+    await client.connect();
+    const db = client.db('markdb'); // ajuste para o banco
+    const collection = db.collection('tasks'); // ajuste para a coleção
+
+    const result = await collection.deleteMany({});
+    return result.deletedCount;
+  } catch (err) {
+    throw err;
+  } finally {
+    await client.close();
+  }
+
+}
+
+
+module.exports = { deleteUser, deleteAllTasks };
 
 
 /* ------------------------------------------------------------------
