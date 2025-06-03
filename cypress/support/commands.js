@@ -79,22 +79,38 @@ Cypress.Commands.add('deleteTask', (task_id) => {
 });
 
 
-Cypress.Commands.add('listTaskBy_id', (task_id) => {
+Cypress.Commands.add('listTaskBy', (task_id, taskName) => {
 
-    cy.get('@loginToken').then(token => {
+    return cy.get('@loginToken').then(token => {
 
-        if(task_id == ''){
+        if(!task_id && !taskName){
             return cy.request({
                 url: '/tasks',
                 method: 'GET',
                 headers: { Authorization: token}
             });
-        }else{
+        }else if(task_id){
             return cy.request({
                 url: `/tasks/${task_id}`,
+                method: 'GET',
+                headers: { Authorization: token}
+            });
+        }else if(taskName){
+            return cy.request({
+                url: `/tasks?name=${encodeURIComponent(taskName)}`,
                 method: 'GET',
                 headers: { Authorization: token}
             });
         }
     });
 });
+
+Cypress.Commands.add('setup_createTaskForList', (dtUser, dtTask, dtTask2) => {
+
+    cy.task('deleteUserByEmail', dtUser.email)
+    .then(()=> cy.task('deleteAllTasks'))
+    .then(()=> cy.createUser(dtUser))
+    .then(()=> cy.loginUser(dtUser)).then(response=> cy.wrap(response.body.token).as('loginToken'))
+    .then(()=> cy.createTask(dtTask)).then(response=> cy.wrap(response.body._id).as('task_id'))
+    .then(()=> cy.createTask(dtTask2))
+})
