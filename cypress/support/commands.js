@@ -77,3 +77,24 @@ Cypress.Commands.add('deleteTask', (task_id) => {
         });
     });
 });
+
+
+Cypress.Commands.add('listTaskBy_id', (task_id) => {
+
+    cy.get('@loginToken').then(token => {
+
+        if(task_id == ''){
+            return cy.request({
+                url: '/tasks',
+                method: 'GET',
+                headers: { Authorization: token}
+            });
+        }else{
+            return cy.request({
+                url: `/tasks/${task_id}`,
+                method: 'GET',
+                headers: { Authorization: token}
+            });
+        }
+    });
+});
