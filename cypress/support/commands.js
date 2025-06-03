@@ -23,6 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
 /// <reference types="cypress" />
 
 Cypress.Commands.add('createUser', (dataUser) => {
@@ -57,11 +58,22 @@ Cypress.Commands.add('createTask', (dataTask) => {
             url: '/tasks',
             method: 'POST',
             failOnStatusCode: false,
-            headers: {
-                Authorization: token
-            },
+            headers: { Authorization: token },
             body: dataTask
         });
     });
      
+});
+
+Cypress.Commands.add('deleteTask', (task_id) => {
+
+    cy.get('@loginToken').then(token => {
+
+        return cy.request({
+            url: `/tasks/${task_id}`,
+            method: 'DELETE',
+            failOnStatusCode: false,
+            headers: { Authorization: token }
+        });
+    });
 });
