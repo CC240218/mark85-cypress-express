@@ -35,8 +35,59 @@ describe('Teste de criação de tarefas do ususário', () => {
                 expect(response.body.user).to.not.be.empty;
                 expect(response.body._id).to.not.be.empty;
 
+            })
+        });
 
+        it('deve criar uma tarefa sem tags', () => {
 
+            data.task.tags = []
+            cy.createTask(data.task).then(response => {
+                expect(response.status).to.eq(201);
+                expect(response.body).to.have.property('name');
+                expect(response.body).to.have.property('is_done');
+                expect(response.body).to.have.property('tags');
+                expect(response.body).to.have.property('user');
+                expect(response.body).to.have.property('_id');
+
+                expect(response.body.name).to.eq(data.task.name);
+                expect(response.body.is_done).to.be.false;
+                expect(response.body.tags).to.be.empty
+                expect(response.body.user).to.not.be.empty;
+                expect(response.body._id).to.not.be.empty;
+            })
+        })
+    });
+
+    context('Validation task', () => {
+
+        it('Não deve cadastrar uma tarefa com nome repetido', () => {
+
+            cy.createTask(data.task)
+            cy.createTask(data.task).then(response => {
+                expect(response.status).to.eq(409);
+                expect(response.body).to.have.property('message');
+                expect(response.body.message).to.eq(data.err.taskDup);
+            })
+        })
+
+        it('Não deve cadastrar uma tarefa sem nome', () => {
+
+            data.task.name = ''
+            cy.createTask(data.task).then(response => {
+                expect(response.status).to.eq(400);
+                expect(response.body).to.have.property('message');
+                expect(response.body.message).to.eq(data.err.namEmpy);
+
+            })
+        })
+
+        it('Não deve cadastrar com campos a mais', () => {
+
+            data.task.extra = 'campo extra';
+            cy.createTask(data.task).then(response => {
+                expect(response.status).to.eq(400);
+                expect(response.body).to.have.property('message');
+                expect(response.body.message).to.eq(data.err.extra)
             })
         })
     });
