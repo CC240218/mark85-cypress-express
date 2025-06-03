@@ -1,7 +1,12 @@
 
 
 describe('Teste de criação de tarefas do ususário', () => {
-
+    /* 
+    beforeEach :
+    uma ação encadeada da fixure >> função de exclusão do usuário direto no banco mongo
+    >> exclusão de todas as tasks via banco mongo >> Criação de usuário via API
+    >> Login do usuário criado e captura do seu token com alias
+    */
     let data;
     beforeEach(() => {
         cy.fixture('users.json').then(user => {
@@ -12,7 +17,6 @@ describe('Teste de criação de tarefas do ususário', () => {
         .then(() =>  cy.createUser(data.users))
         .then(() =>  cy.loginUser(data.users))
         .then(response =>  cy.wrap(response.body.token).as('loginToken'));
-    
     });
 
     context('Create task', () => {
