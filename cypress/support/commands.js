@@ -26,6 +26,7 @@
 
 /// <reference types="cypress" />
 
+
 Cypress.Commands.add('createUser', (dataUser) => {
 
     return cy.request({
