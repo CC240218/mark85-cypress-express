@@ -127,4 +127,36 @@ describe('Teste de retorno da lista de tarefas do usuário', () => {
             });
         });
     });
+
+    context.only('Validation list task', () => {
+
+        it('Deve retornar erro ao não encontrar tarefa pelo id', () => {
+
+            data.task._id = '123456789123456789123456'
+            cy.listTaskBy(data.task._id).then(response => {
+                expect(response.status).to.eq(404)
+                expect(response.body).to.be.empty
+            });
+        });
+
+        it('Deve retornar erro com id abaixo de 24 caracteres', () => {
+
+            data.task._id = '12345678912345678912345'; // 23 caracteres
+            cy.listTaskBy(data.task._id).then(response => {
+                expect(response.status).to.eq(400);
+                expect(response.body).to.have.property('message');
+                expect(response.body.message).to.eq(data.err.paranDown)
+            });
+        });
+
+        it('Deve retornar erro com id acima de 24 caracteres', () => {
+
+            data.task._id = '1234567891234567891234567'; // 25 caracteres
+            cy.listTaskBy(data.task._id).then(response => {
+                expect(response.status).to.eq(400);
+                expect(response.body).to.have.property('message');
+                expect(response.body.message).to.eq(data.err.paranUp)
+            });
+        });
+    });
 });
