@@ -9,7 +9,7 @@ describe('Teste de login via API', () => {
 
     context('Login', () => {
         
-        it.only('Deve logar o usuário', () => {
+        it('Deve logar o usuário', () => {
 
             cy.loginUser(data.users, {}).then(response => {
                 expect(response.status).to.eq(200);
