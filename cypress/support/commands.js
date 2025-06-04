@@ -94,6 +94,7 @@ Cypress.Commands.add('listTaskBy', (task_id, taskName) => {
             return cy.request({
                 url: `/tasks/${task_id}`,
                 method: 'GET',
+                failOnStatusCode: false,
                 headers: { Authorization: token}
             });
         }else if(taskName){
@@ -108,8 +109,8 @@ Cypress.Commands.add('listTaskBy', (task_id, taskName) => {
 
 Cypress.Commands.add('setup_createTaskForList', (dtUser, dtTask, dtTask2) => {
 
-    cy.task('deleteUserByEmail', dtUser.email)
-    .then(()=> cy.task('deleteAllTasks'))
+    cy.task('deleteUserByEmail', dtUser.email) // via mongodb
+    .then(()=> cy.task('deleteAllTasks')) // via mongodb
     .then(()=> cy.createUser(dtUser))
     .then(()=> cy.loginUser(dtUser)).then(response=> cy.wrap(response.body.token).as('loginToken'))
     .then(()=> cy.createTask(dtTask)).then(response=> cy.wrap(response.body._id).as('task_id'))
