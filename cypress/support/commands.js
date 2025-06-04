@@ -39,6 +39,8 @@ Cypress.Commands.add('createUser', (dataUser) => {
 });
 
 Cypress.Commands.add('loginUser', (dataUser) => {
+
+    
     return cy.request({
         url:'/sessions',
         method:'POST',
@@ -107,12 +109,15 @@ Cypress.Commands.add('listTaskBy', (task_id, taskName) => {
     });
 });
 
-Cypress.Commands.add('setup_createTaskForList', (dtUser, dtTask, dtTask2) => {
+Cypress.Commands.add('setup_createTaskForList', (dtUser, dtTask, dtTask2, option={}) => {
 
     cy.task('deleteUserByEmail', dtUser.email) // via mongodb
     .then(()=> cy.task('deleteAllTasks')) // via mongodb
     .then(()=> cy.createUser(dtUser))
-    .then(()=> cy.loginUser(dtUser)).then(response=> cy.wrap(response.body.token).as('loginToken'))
-    .then(()=> cy.createTask(dtTask)).then(response=> cy.wrap(response.body._id).as('task_id'))
-    .then(()=> cy.createTask(dtTask2))
+    .then(()=> {
+        if(option.skipLogin) return cy.wrap(null)
+        return cy.loginUser(dtUser).then(response=> cy.wrap(response.body.token).as('loginToken'))
+    })
+    .then(()=> dtTask  ? cy.createTask(dtTask).then(response=> cy.wrap(response.body._id).as('task_id')):null)
+    .then(()=> dtTask2 ? cy.createTask(dtTask2): null)
 })
