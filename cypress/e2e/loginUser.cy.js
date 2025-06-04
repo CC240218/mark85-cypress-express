@@ -3,14 +3,13 @@ describe('Teste de login via API', () => {
 
     let data;
     beforeEach(() => { 
-        cy.fixture('users.json').then(user => {
-            data = user;
-        });
+        cy.fixture('users.json').then(user => { data = user; })
+        .then(() => cy.setup_createTaskForList(data.users, null, null, {skipLogin: true}))
     });
 
     context('Login', () => {
         
-        it('Deve logar o usuário', () => {
+        it.only('Deve logar o usuário', () => {
 
             cy.loginUser(data.users, {}).then(response => {
                 expect(response.status).to.eq(200);
