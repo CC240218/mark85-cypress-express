@@ -145,7 +145,7 @@ describe('Teste de retorno da lista de tarefas do usuário', () => {
             cy.listTaskBy(data.task._id).then(response => {
                 expect(response.status).to.eq(400);
                 expect(response.body).to.have.property('message');
-                expect(response.body.message).to.eq(data.err.paranDown)
+                expect(response.body.message).to.eq(data.err.deleIDqtdDOWN)
             });
         });
 
@@ -155,7 +155,7 @@ describe('Teste de retorno da lista de tarefas do usuário', () => {
             cy.listTaskBy(data.task._id).then(response => {
                 expect(response.status).to.eq(400);
                 expect(response.body).to.have.property('message');
-                expect(response.body.message).to.eq(data.err.paranUp)
+                expect(response.body.message).to.eq(data.err.deleIDqtdUP)
             });
         });
     });
