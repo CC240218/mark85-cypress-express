@@ -11,11 +11,12 @@
     "task": {
         "name": "tarefa",
         "tags": ["tag1", "tag2", "tag3"]
-    },
+        },
     "task2":{
         "name":"tarefa de numero 2",
         "tags":[]
-    },
+        },
+    
 
     "err":{
             "msnDupl": "Duplicated email!",
