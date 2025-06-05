@@ -9,14 +9,8 @@ describe('Teste de criação de tarefas do ususário', () => {
     */
     let data;
     beforeEach(() => {
-        cy.fixture('users.json').then(user => {
-            data = user;
-        })
-        .then(() =>  cy.task('deleteUserByEmail', data.users.email))
-        .then(() =>  cy.task('deleteAllTasks'))
-        .then(() =>  cy.createUser(data.users))
-        .then(() =>  cy.loginUser(data.users))
-        .then(response =>  cy.wrap(response.body.token).as('loginToken'));
+        cy.fixture('users.json').then(user => { data = user; })
+        .then(()=> cy.setup_createTaskForList(data.users));
     });
 
     context('Create task', () => {
