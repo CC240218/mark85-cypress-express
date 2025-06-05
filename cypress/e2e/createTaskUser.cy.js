@@ -5,7 +5,7 @@ describe('Teste de criação de tarefas do ususário', () => {
     let data;
     beforeEach(() => {
         cy.fixture('users.json').then(user => { data = user; })
-        .then(()=> cy.setup_createTaskForList(data.users, data.task));
+        .then(()=> cy.setup_initializeUserTasks(data.users, data.task));
     });
 
     context('Create task', () => {
@@ -28,7 +28,7 @@ describe('Teste de criação de tarefas do ususário', () => {
                 expect(response.body.user).to.not.be.empty;
                 expect(response.body._id).to.not.be.empty;
 
-            })
+            });
         });
 
         it('deve criar uma tarefa sem tags', () => {
@@ -47,8 +47,8 @@ describe('Teste de criação de tarefas do ususário', () => {
                 expect(response.body.tags).to.be.empty
                 expect(response.body.user).to.not.be.empty;
                 expect(response.body._id).to.not.be.empty;
-            })
-        })
+            });
+        });
     });
 
     context('Validation task', () => {
@@ -60,8 +60,8 @@ describe('Teste de criação de tarefas do ususário', () => {
                 expect(response.status).to.eq(409);
                 expect(response.body).to.have.property('message');
                 expect(response.body.message).to.eq(data.err.taskDup);
-            })
-        })
+            });
+        });
 
         it('Não deve cadastrar uma tarefa sem nome', () => {
 
@@ -71,8 +71,8 @@ describe('Teste de criação de tarefas do ususário', () => {
                 expect(response.body).to.have.property('message');
                 expect(response.body.message).to.eq(data.err.namEmpy);
 
-            })
-        })
+            });
+        });
 
         it('Não deve cadastrar com campos a mais', () => {
 
@@ -81,8 +81,8 @@ describe('Teste de criação de tarefas do ususário', () => {
                 expect(response.status).to.eq(400);
                 expect(response.body).to.have.property('message');
                 expect(response.body.message).to.eq(data.err.extra)
-            })
-        })
+            });
+        });
     });
 
-})
+});
