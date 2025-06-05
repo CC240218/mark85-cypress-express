@@ -109,6 +109,18 @@ Cypress.Commands.add('listTaskBy', (task_id, taskName) => {
     });
 });
 
+Cypress.Commands.add('taskDoneTodo', (task_id, taskStatus) => {
+
+    cy.get('@loginToken').then(token => {
+        return cy.request({
+            url: `/tasks/${task_id}/${taskStatus}`,
+            method: 'PUT',
+            failOnStatusCode: false,
+            headers: { Authorization: token}
+        });
+    });
+})
+
 Cypress.Commands.add('setup_createTaskForList', (dtUser, dtTask, dtTask2, option={}) => {
 
     cy.task('deleteUserByEmail', dtUser.email) // via mongodb
@@ -120,4 +132,6 @@ Cypress.Commands.add('setup_createTaskForList', (dtUser, dtTask, dtTask2, option
     })
     .then(()=> dtTask  ? cy.createTask(dtTask).then(response=> cy.wrap(response.body._id).as('task_id')):null)
     .then(()=> dtTask2 ? cy.createTask(dtTask2): null)
-})
+});
+
+// initializeUserTasks
