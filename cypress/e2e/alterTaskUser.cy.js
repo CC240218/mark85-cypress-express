@@ -8,7 +8,7 @@ describe('Teste de finalização de tarefa', () => {
     beforeEach(() => { 
         cy.fixture('users.json').then(user => { data = user })
         .then(() => 
-            cy.setup_createTaskForList( data.users, data.task, null)
+            cy.setup_initializeUserTasks( data.users, data.task, null)
         );
     });
 
@@ -20,12 +20,12 @@ describe('Teste de finalização de tarefa', () => {
 
                 cy.listTaskBy( taskId ).then(response => { expect(response.body.is_done).to.eq(false)})
                 .then(() =>    cy.taskDoneTodo( taskId, TASK_DONE).then(response => {
-                expect(response.status).to.eq(204);
-            }))
-            .then(() => cy.listTaskBy(taskId).then(response => {
-                expect(response.body.is_done).to.eq(true);
-            }) )
-          });
+                    expect(response.status).to.eq(204);
+                }) )
+                .then(() => cy.listTaskBy(taskId).then(response => {
+                    expect(response.body.is_done).to.eq(true);
+                }) );
+            });
         });
 
         it('Deve desfazer a finalização de uma tarefa', () => {
@@ -41,8 +41,8 @@ describe('Teste de finalização de tarefa', () => {
                 }) )
                 .then(() => cy.listTaskBy(taskId).then(response => {
                     expect(response.body.is_done).to.eq(false);
-                }) )
-          });
+                }) );
+            });
         });
     });
 
@@ -59,9 +59,9 @@ describe('Teste de finalização de tarefa', () => {
 
                     expect(response.body)
                     .to.include(data.htmlErr.statusNoFound+taskId+'/'+statusErr);
-
-                })
-            })
+                });
+                
+            });
         });
 
         it('Deve apresentar erro ao não passar o paramentro de status da task', () => {
@@ -71,10 +71,9 @@ describe('Teste de finalização de tarefa', () => {
                 cy.taskDoneTodo(taskId, null).then(response => {
                     expect(response.status).to.eq(404)
                     expect(response.headers['content-type']).to.include(data.htmlErr.contType);
-
                     expect(response.body).to.include(data.htmlErr.statusNoFound+taskId);
-
                 });
+
             });
         });
 
