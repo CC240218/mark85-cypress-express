@@ -6,7 +6,7 @@ describe('Teste de exclusão de tarefa', () => {
     let data;
     beforeEach(() => {
         cy.fixture('users.json').then(user => { data = user; })
-        .then(()=> cy.setup_createTaskForList(data.users, data.task, null));
+        .then(()=> cy.setup_initializeUserTasks(data.users, data.task, null));
         
     })
 
