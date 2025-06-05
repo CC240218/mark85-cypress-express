@@ -6,7 +6,7 @@ describe('Teste de exclusão de tarefa', () => {
     let data;
     beforeEach(() => {
         cy.fixture('users.json').then(user => { data = user; })
-        .then(()=> cy.setup_createTaskForList(data.users, data.task, null))
+        .then(()=> cy.setup_createTaskForList(data.users, data.task, null));
         
     })
 
@@ -17,17 +17,17 @@ describe('Teste de exclusão de tarefa', () => {
             cy.get('@task_id').then(taskId => {
 
                 cy.listTaskBy(taskId).then(response => {
-                expect(response.body._id).to.not.be.empty
+                    expect(response.body._id).to.not.be.empty
                 })
                 .then(() =>  cy.deleteTask(taskId).then(response => { 
                     expect(response.status).to.eq(204)
                 }))
                 .then(() => cy.listTaskBy(taskId).then(response => {
                     expect(response.status).to.eq(404)
-                }))
+                }));
             });
         });
-    })
+    });
 
     context('Validation delete task', () => {
 
@@ -46,7 +46,7 @@ describe('Teste de exclusão de tarefa', () => {
             cy.deleteTask(data.task._id).then(response => {
                 expect(response.status).to.eq(400);
                 expect(response.body).to.have.property('message');
-                expect(response.body.message).to.eq(data.err.deleIDqtdDOWN)
+                expect(response.body.message).to.eq(data.err.IDqtdDOWN)
             });
         });
 
@@ -56,8 +56,8 @@ describe('Teste de exclusão de tarefa', () => {
             cy.deleteTask(data.task._id).then(response => {
                 expect(response.status).to.eq(400);
                 expect(response.body).to.have.property('message');
-                expect(response.body.message).to.eq(data.err.deleIDqtdUP)
+                expect(response.body.message).to.eq(data.err.IDqtdUP)
             });
         });
     });
-})
+});

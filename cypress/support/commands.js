@@ -121,7 +121,7 @@ Cypress.Commands.add('taskDoneTodo', (task_id, taskStatus) => {
     });
 })
 
-Cypress.Commands.add('setup_createTaskForList', (dtUser, dtTask, dtTask2, option={}) => {
+Cypress.Commands.add('setup_initializeUserTasks', (dtUser, dtTask, dtTask2, option={}) => {
 
     cy.task('deleteUserByEmail', dtUser.email) // via mongodb
     .then(()=> cy.task('deleteAllTasks')) // via mongodb
