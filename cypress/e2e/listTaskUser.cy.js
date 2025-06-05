@@ -4,7 +4,7 @@ describe('Teste de retorno da lista de tarefas do usuário', () => {
     let data;
     beforeEach(()=>{
         cy.fixture('users.json').then(user => { data = user })
-        .then(() => cy.setup_createTaskForList(data.users, data.task, data.task2))
+        .then(() => cy.setup_initializeUserTasks(data.users, data.task, data.task2))
     })
 
     context('list tasks', () => {
@@ -145,7 +145,7 @@ describe('Teste de retorno da lista de tarefas do usuário', () => {
             cy.listTaskBy(data.task._id).then(response => {
                 expect(response.status).to.eq(400);
                 expect(response.body).to.have.property('message');
-                expect(response.body.message).to.eq(data.err.deleIDqtdDOWN)
+                expect(response.body.message).to.eq(data.err.IDqtdDOWN)
             });
         });
 
@@ -155,7 +155,7 @@ describe('Teste de retorno da lista de tarefas do usuário', () => {
             cy.listTaskBy(data.task._id).then(response => {
                 expect(response.status).to.eq(400);
                 expect(response.body).to.have.property('message');
-                expect(response.body.message).to.eq(data.err.deleIDqtdUP)
+                expect(response.body.message).to.eq(data.err.IDqtdUP)
             });
         });
     });
