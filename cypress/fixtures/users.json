@@ -27,8 +27,13 @@
             "extra": "ValidationError: \"extra\" is not allowed",
             "errToken": "Expired or incorrect token",
             "taskDup": "Duplicated task!",
-            "deleIDqtdUP":"ValidationError: \"task_id\" length must be less than or equal to 24 characters long",
-            "deleIDqtdDOWN":"ValidationError: \"task_id\" length must be at least 24 characters long"
+            "IDqtdUP":"ValidationError: \"task_id\" length must be less than or equal to 24 characters long",
+            "IDqtdDOWN":"ValidationError: \"task_id\" length must be at least 24 characters long"
+        },
+
+        "htmlErr":{
+            "statusNoFound": "Cannot PUT /tasks/",
+            "contType": "text/html"
         }
 
 }
