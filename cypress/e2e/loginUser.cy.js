@@ -4,7 +4,7 @@ describe('Teste de login via API', () => {
     let data;
     beforeEach(() => { 
         cy.fixture('users.json').then(user => { data = user; })
-        .then(() => cy.setup_createTaskForList(data.users, null, null, {skipLogin: true}))
+        .then(() => cy.setup_initializeUserTasks(data.users, null, null, {skipLogin: true}))
     });
 
     context('Login', () => {
